@@ -34,7 +34,7 @@ app.post('/recipes', (req, res) => {
         if(err) {
             res.status(404).json({msg: 'Something went wrong'});
         }
-    })
+    });
 });
 
 app.get('/recipes/:id', (req, res) => {
