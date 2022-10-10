@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const mongoose = reuqire('mongoose');
+const mongoose = require('mongoose');
 const Recipe = require('./models/RecipeModel');
 
 mongoose.connect(process.env.MONGOURI);
