@@ -21,7 +21,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/recipes', (req, res) => {
-    Recipe.find({}, (recipes) => {
+    Recipe.find({}, (err, recipes) => {
+        if(err) {
+            res.sendStatus(404);
+        }
         console.log(recipes);
         res.sendStatus(200);
     });
