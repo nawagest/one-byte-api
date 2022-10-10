@@ -26,7 +26,7 @@ app.get('/recipes', (req, res) => {
             res.sendStatus(404);
         }
         console.log(recipes);
-        res.sendStatus(200);
+        res.status(200).json(recipes);
     });
 });
 
