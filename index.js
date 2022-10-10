@@ -14,7 +14,7 @@ const corsOptions = {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', cors(corsOptions), async (req, res) => {
+app.get('/', async (req, res) => {
   res.send('This is the api for my cheesy app')
 });
 
@@ -41,6 +41,6 @@ app.get('/recipes/:id', cors(corsOptions), (req, res) => {
     });
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log('api running')
 });
