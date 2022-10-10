@@ -2,18 +2,43 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mongoose = reuqire('mongoose');
-const { v4: uuidv4 } = require('uuid');
+const Recipe = require('./models/RecipeModel');
 
-mongoose.connect(process.env.MONGOURI, (err) => err || console.log('could not connect to DB') || console.log('connected successfully'));
+mongoose.connect(process.env.MONGOURI);
 
-app.use(cors());
+const corsOptions = {
+    origin: "https://my-cheesy-app.nawagest.repl.co",
+    optionsSuccessStatus: 200
+}
 
-app.get('/', async (req, res) => {
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.get('/', cors(corsOptions), async (req, res) => {
   res.send('This is the api for my cheesy app')
-})
+});
 
-app.get('/recipes', (req, res) => {
-  res.json(({hello: 'world'}));
+app.get('/recipes', cors(corsOptions), (req, res) => {
+  res.json(Recipe.find({}));
+});
+
+app.post('/recipes', cors(corsOptions), (req, res) => {
+    const data = req.body;
+    console.log(data);
+    const recipe = new Recipe(data);
+    recipe.save((err) => {
+        if(err) {
+            res.status(404).send('Something went wrong');
+        }
+    })
+});
+
+app.get('/recipes/:id', cors(corsOptions), (req, res) => {
+    const { id } = req.params
+    Recipe.find({ recipeID: id }, (value) => {
+        if(value) res.json(value)
+        else res.status(404).json({msg: 'Could not find recipe with this id'});
+    });
 });
 
 app.listen(3000, () => {
