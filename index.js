@@ -37,7 +37,7 @@ app.post('/recipes', (req, res) => {
         if(err) {
             res.status(404).json({msg: 'Something went wrong'});
         } else {
-            res.sendStatus(200);
+            res.redirect('https://my-cheesy-app.nawagest.repl.co/');
         }
     });
 });
