@@ -25,7 +25,6 @@ app.get('/recipes', (req, res) => {
         if(err) {
             res.sendStatus(404);
         }
-        console.log(recipes);
         res.status(200).json(recipes);
     });
 });
@@ -33,14 +32,9 @@ app.get('/recipes', (req, res) => {
 app.post('/recipes', (req, res) => {
     const data = req.body;
 
-    console.log(data.ingredients);
-
-    const ingredient = data.ingredients.filter((ingredient, i) => ingredient.includes('cheese' || 'Cheese'));
-
-    console.log(ingredient);
-
+    const recipe = new Recipe(data);
+    const ingredient = recipe.ingredients.filter((ingredient, i) => ingredient === ingredient.includes('cheese' || 'Cheese'));
     if(ingredient) {
-        const recipe = new Recipe(data);
         recipe.save((err) => {
             if(err) {
                 res.status(404).json({msg: 'Something went wrong'});
@@ -49,7 +43,7 @@ app.post('/recipes', (req, res) => {
             }
         });
     } else {
-        res.redirect('https://my-cheesy-app.nawagest.repl.co/app/error.html')
+        res.redirect('https://my-cheesy-app.nawagest.repl.co/app/error.html');
     }
 });
 
