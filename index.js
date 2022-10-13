@@ -31,20 +31,15 @@ app.get('/recipes', (req, res) => {
 
 app.post('/recipes', (req, res) => {
     const data = req.body;
-
     const recipe = new Recipe(data);
-    const ingredient = recipe.ingredients.filter((ingredient, i) => ingredient === ingredient.includes('cheese' || 'Cheese'));
-    if(ingredient === []) {
-        res.redirect('https://my-cheesy-app.nawagest.repl.co/app/error.html');
-    } else {
-        recipe.save((err) => {
-            if(err) {
-                res.status(404).json({msg: 'Something went wrong'});
-            } else {
-                res.redirect('https://my-cheesy-app.nawagest.repl.co/app/index.html');
-            }
-        });       
-    }
+
+    recipe.save((err) => {
+        if(err) {
+            res.status(404).json({msg: 'Something went wrong'});
+        } else {
+            res.redirect('https://my-cheesy-app.nawagest.repl.co/app/index.html');
+        }
+    });
 });
 
 app.get('/recipes/:id', (req, res) => {
