@@ -35,6 +35,8 @@ app.post('/recipes', (req, res) => {
 
     const ingredient = data.ingredients.filter((ingredient, i) => ingredient.includes('cheese' || 'Cheese'));
 
+    console.log(ingredient);
+
     if(ingredient) {
         const recipe = new Recipe(data);
         recipe.save((err) => {
