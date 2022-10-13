@@ -62,5 +62,5 @@ app.get('/recipes/:id', (req, res) => {
 });
 
 app.listen(process.env.PORT || 3001, () => {
-  console.log('api running')
+  console.log('api running');
 });
