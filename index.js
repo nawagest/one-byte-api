@@ -33,6 +33,8 @@ app.get('/recipes', (req, res) => {
 app.post('/recipes', (req, res) => {
     const data = req.body;
 
+    console.log(data.ingredients);
+
     const ingredient = data.ingredients.filter((ingredient, i) => ingredient.includes('cheese' || 'Cheese'));
 
     console.log(ingredient);
